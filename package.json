@@ -1,0 +1,23 @@
+{
+  "name": "ember-service-worker-index",
+  "version": "0.0.0",
+  "description": "An Ember Service Worker plugin that caches the index.html file",
+  "directories": {
+    "doc": "doc",
+    "test": "tests"
+  },
+  "repository": "",
+  "engines": {
+    "node": ">= 4.0.0"
+  },
+  "author": "",
+  "license": "MIT",
+  "keywords": [
+    "ember-addon"
+  ],
+  "dependencies": {
+  },
+  "ember-addon": {
+    "configPath": "tests/dummy/config"
+  }
+}
