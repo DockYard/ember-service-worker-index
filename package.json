@@ -13,9 +13,12 @@
   "author": "",
   "license": "MIT",
   "keywords": [
-    "ember-addon"
+    "ember-addon",
+    "ember-service-worker-plugin"
   ],
   "dependencies": {
+    "broccoli-merge-trees": "^1.2.1",
+    "broccoli-plugin": "^1.3.0"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"
