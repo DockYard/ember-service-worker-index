@@ -12,6 +12,28 @@ menu in the Chrome devtools.
 ember install ember-service-worker-index
 ```
 
+## Configuration
+
+The configuration is done in the `ember-cli-build.js` file:
+
+```js
+var EmberApp = require('ember-cli/lib/broccoli/ember-app');
+
+module.exports = function(defaults) {
+  var app = new EmberApp(defaults, {
+    'esw-index': {
+      // Where the location of your index file is at, defaults to `index.html`
+      location: 'app-shell.html',
+
+      // changing this version number will bust the cache
+      version: '1'
+    }
+  });
+
+  return app.toTree();
+};
+```
+
 ## Authors
 
 * [Marten Schilstra](http://twitter.com/martndemus)
