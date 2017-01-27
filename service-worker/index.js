@@ -8,23 +8,6 @@ const CACHE_NAME = `${CACHE_KEY_PREFIX}-${VERSION}`;
 
 const INDEX_HTML_URL = new URL(INDEX_HTML_PATH, self.location).toString();
 
-/*
- * Deletes all caches that start with the `CACHE_KEY_PREFIX`, except for the
- * cache defined by `CACHE_NAME`
- */
-const DELETE_STALE_CACHES = () => {
-  return caches.keys().then((cacheNames) => {
-    cacheNames.forEach((cacheName) => {
-      let isIndexCache = cacheName.indexOf(CACHE_KEY_PREFIX) === 0;
-      let isNotCurrentCache = cacheName !== CACHE_NAME;
-
-      if (isIndexCache && isNotCurrentCache) {
-        caches.delete(cacheName);
-      }
-    });
-  });
-};
-
 self.addEventListener('install', (event) => {
   event.waitUntil(
     fetch(INDEX_HTML_URL, { credentials: 'include' }).then((response) => {
@@ -36,7 +19,7 @@ self.addEventListener('install', (event) => {
 });
 
 self.addEventListener('activate', (event) => {
-  event.waitUntil(DELETE_STALE_CACHES());
+  event.waitUntil(cleanupCaches(CACHE_KEY_PREFIX, CACHE_NAME));
 });
 
 self.addEventListener('fetch', (event) => {
