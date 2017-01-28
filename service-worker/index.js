@@ -2,6 +2,7 @@ import {
   INDEX_HTML_PATH,
   VERSION
 } from 'ember-service-worker-index/service-worker/config';
+import cleanupCaches from 'ember-service-worker/service-worker/cleanup-caches';
 
 const CACHE_KEY_PREFIX = 'esw-index';
 const CACHE_NAME = `${CACHE_KEY_PREFIX}-${VERSION}`;
