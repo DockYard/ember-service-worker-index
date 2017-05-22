@@ -25,6 +25,9 @@ module.exports = function(defaults) {
       // Where the location of your index file is at, defaults to `index.html`
       location: 'app-shell.html',
 
+      // Bypass esw-index and don't serve cached index file for matching URLs
+      excludeScope: [/\/non-ember-app(\/.*)?$/, /\/another-app(\/.*)?$/],
+
       // changing this version number will bust the cache
       version: '1'
     }
