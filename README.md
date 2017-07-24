@@ -1,4 +1,7 @@
 # Ember Service Worker Index
+
+**[ember-service-worker-index is built and maintained by DockYard, contact us for expert Ember.js consulting](https://dockyard.com/ember-consulting)**.
+
 _An Ember Service Worker plugin that caches an Ember app's index file_
 
 ## F#$& my assets aren't updating in development mode
