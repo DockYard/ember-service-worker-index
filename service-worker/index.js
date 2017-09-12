@@ -1,7 +1,8 @@
 import {
   INDEX_HTML_PATH,
   VERSION,
-  INDEX_EXCLUDE_SCOPE
+  INDEX_EXCLUDE_SCOPE,
+  INDEX_INCLUDE_SCOPE
 } from 'ember-service-worker-index/service-worker/config';
 
 import { urlMatchesAnyPattern } from 'ember-service-worker/service-worker/url-utils';
@@ -32,8 +33,9 @@ self.addEventListener('fetch', (event) => {
   let isHTMLRequest = request.headers.get('accept').indexOf('text/html') !== -1;
   let isLocal = new URL(request.url).origin === location.origin;
   let scopeExcluded = urlMatchesAnyPattern(request.url, INDEX_EXCLUDE_SCOPE);
+  let scopeIncluded = !INDEX_INCLUDE_SCOPE.length || urlMatchesAnyPattern(request.url, INDEX_INCLUDE_SCOPE);
 
-  if (isGETRequest && isHTMLRequest && isLocal && !scopeExcluded) {
+  if (isGETRequest && isHTMLRequest && isLocal && scopeIncluded && !scopeExcluded) {
     event.respondWith(
       caches.match(INDEX_HTML_URL, { cacheName: CACHE_NAME })
     );

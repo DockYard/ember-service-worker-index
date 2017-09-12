@@ -31,6 +31,11 @@ module.exports = function(defaults) {
       // Bypass esw-index and don't serve cached index file for matching URLs
       excludeScope: [/\/non-ember-app(\/.*)?$/, /\/another-app(\/.*)?$/],
 
+      // Leave blank serve index file for all URLs, otherwise ONLY URLs which match
+      // this pattern will be served the cached index file so you will need to list
+      // every route in your app.
+      includeScope: [/\/dashboard(\/.*)?$/, /\/admin(\/.*)?$/],
+
       // changing this version number will bust the cache
       version: '1'
     }
