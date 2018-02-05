@@ -36,6 +36,9 @@ module.exports = function(defaults) {
       // every route in your app.
       includeScope: [/\/dashboard(\/.*)?$/, /\/admin(\/.*)?$/],
 
+      // Returns the cached version only when network request fails
+      fallback: false,
+
       // changing this version number will bust the cache
       version: '1'
     }
