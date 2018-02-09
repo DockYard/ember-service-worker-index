@@ -36,7 +36,9 @@ module.exports = function(defaults) {
       // every route in your app.
       includeScope: [/\/dashboard(\/.*)?$/, /\/admin(\/.*)?$/],
 
-      // changing this version number will bust the cache
+      // Changing this version number will bust the cache, but you probably do not
+      // want to be doing this manually, but rather using `versionStrategy` as
+      // explained here http://ember-service-worker.com/documentation/configuration/#versioning
       version: '1'
     }
   });
