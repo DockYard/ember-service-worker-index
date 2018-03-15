@@ -1,5 +1,6 @@
 import {
   INDEX_HTML_PATH,
+  ENVIRONMENT,
   VERSION,
   INDEX_EXCLUDE_SCOPE,
   INDEX_INCLUDE_SCOPE
@@ -29,13 +30,15 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
   let request = event.request;
+  let url = new URL(request.url);
   let isGETRequest = request.method === 'GET';
   let isHTMLRequest = request.headers.get('accept').indexOf('text/html') !== -1;
-  let isLocal = new URL(request.url).origin === location.origin;
+  let isLocal = url.origin === location.origin;
   let scopeExcluded = urlMatchesAnyPattern(request.url, INDEX_EXCLUDE_SCOPE);
   let scopeIncluded = !INDEX_INCLUDE_SCOPE.length || urlMatchesAnyPattern(request.url, INDEX_INCLUDE_SCOPE);
+  let isTests = url.pathname === '/tests' && ENVIRONMENT === 'development';
 
-  if (isGETRequest && isHTMLRequest && isLocal && scopeIncluded && !scopeExcluded) {
+  if (!isTests && isGETRequest && isHTMLRequest && isLocal && scopeIncluded && !scopeExcluded) {
     event.respondWith(
       caches.match(INDEX_HTML_URL, { cacheName: CACHE_NAME })
     );
