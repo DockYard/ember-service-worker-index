@@ -41,6 +41,17 @@ self.addEventListener('fetch', (event) => {
   if (!isTests && isGETRequest && isHTMLRequest && isLocal && scopeIncluded && !scopeExcluded) {
     event.respondWith(
       caches.match(INDEX_HTML_URL, { cacheName: CACHE_NAME })
+        .then((response) => {
+          if (response) {
+            return response;
+          }
+
+          return fetch(INDEX_HTML_URL, { credentials: 'include' })
+            .then((fetchedResponse) => {
+              caches.open(CACHE_NAME).then((cache) => cache.put(INDEX_HTML_URL, fetchedResponse));
+              return fetchedResponse.clone();
+            });
+        })
     );
   }
 });
