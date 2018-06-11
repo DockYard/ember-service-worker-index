@@ -39,8 +39,8 @@ self.addEventListener('fetch', (event) => {
   let isTests = url.pathname === '/tests' && ENVIRONMENT === 'development';
 
   if (!isTests && isGETRequest && isHTMLRequest && isLocal && scopeIncluded && !scopeExcluded) {
-    event.respondWith(async () => {
-      return await caches.match(INDEX_HTML_URL, { cacheName: CACHE_NAME });
-    }());
+    event.respondWith(
+      caches.match(INDEX_HTML_URL, { cacheName: CACHE_NAME })
+    );
   }
 });
