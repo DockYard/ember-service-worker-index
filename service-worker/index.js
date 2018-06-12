@@ -41,6 +41,20 @@ self.addEventListener('fetch', (event) => {
   if (!isTests && isGETRequest && isHTMLRequest && isLocal && scopeIncluded && !scopeExcluded) {
     event.respondWith(
       caches.match(INDEX_HTML_URL, { cacheName: CACHE_NAME })
+        .then((response) => {
+          if (response) {
+            return response;
+          }
+
+          // Re-fetch the resource in the event that the cache had been cleared
+          // (mostly an issue with Safari 11.1 where clearing the cache causes
+          // the browser to throw a non-descriptive blank error page).
+          return fetch(INDEX_HTML_URL, { credentials: 'include' })
+            .then((fetchedResponse) => {
+              caches.open(CACHE_NAME).then((cache) => cache.put(INDEX_HTML_URL, fetchedResponse));
+              return fetchedResponse.clone();
+            });
+        })
     );
   }
 });
