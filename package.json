@@ -6,6 +6,9 @@
     "doc": "doc",
     "test": "tests"
   },
+  "scripts": {
+    "test": "mocha node-tests"
+  },
   "repository": "https://github.com/DockYard/ember-service-worker-index",
   "engines": {
     "node": ">= 6.0.0"
@@ -22,5 +25,10 @@
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"
+  },
+  "devDependencies": {
+    "broccoli-test-helper": "^2.0.0",
+    "chai": "^4.2.0",
+    "mocha": "^6.1.3"
   }
 }

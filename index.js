@@ -17,8 +17,12 @@ module.exports = {
   treeForServiceWorker(swTree, appTree) {
     var options = this.app.options['esw-index'];
     options.env = this.app.env;
-    var configFile = new Config([appTree], options);
+    var configFile = this._generateConfig(appTree, options);
 
     return mergeTrees([swTree, configFile]);
+  },
+
+  _generateConfig(appTree, options) {
+    return new Config([appTree], options);
   }
 };
