@@ -4,14 +4,12 @@
 'use strict';
 
 var addonIndex = require('../index');
-var assert = require('chai').assert;
 var createTempDir = require('broccoli-test-helper').createTempDir;
-var createReadableDir = require('broccoli-test-helper').createReadableDir;
-var fs = require('fs');
 
 describe('Addon index', function() {
   describe('included', () => {
     it('sets default options', () => {
+      expect.assertions(1);
       const scope = { _super: {} };
       addonIndex.included.call(scope, {});
 
@@ -19,10 +17,12 @@ describe('Addon index', function() {
         'esw-index': {}
       };
 
-      assert.deepEqual(scope.app.options, expected);
+      expect(scope.app.options).toEqual(expected);
     });
 
     it('preserves configured options', () => {
+      expect.assertions(1);
+
       let options = {
         'esw-index': {
           foo: 'bar'
@@ -31,7 +31,7 @@ describe('Addon index', function() {
 
       const scope = { _super: {} };
       addonIndex.included.call(scope, { options });
-      assert.deepEqual(scope.app.options, options);
+      expect(scope.app.options).toEqual(options);
     });
   });
 
@@ -49,7 +49,8 @@ describe('Addon index', function() {
     });
 
     it('adds the configuration to the tree', () => {
-      let calledMock = false;
+      expect.assertions(4);
+
       const scope = {
         _super: {},
         app: {
@@ -61,9 +62,8 @@ describe('Addon index', function() {
           }
         },
         _generateConfig: (appTree, options) => {
-          calledMock = true;
-          assert.equal(appTree, 'app');
-          assert.deepEqual(options, {
+          expect(appTree).toBe('app');
+          expect(options).toEqual({
             env: 'theater',
             priviledge: 'scooter'
           });
@@ -74,9 +74,8 @@ describe('Addon index', function() {
         "config.js": "uncle"
       });
       const merged = addonIndex.treeForServiceWorker.call(scope, swDir, 'app');
-      assert.isTrue(calledMock);
-      assert.equal(merged.inputNodes.length, 2);
-      assert.equal(merged.inputNodes[1], 'config.js');
+      expect(merged.inputNodes.length).toBe(2);
+      expect(merged.inputNodes[1]).toBe('config.js');
     });
   });
 });
