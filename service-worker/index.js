@@ -46,7 +46,7 @@ self.addEventListener('fetch', (event) => {
 
   if (isGETRequest && isHTMLRequest && isLocal && scopeIncluded && !scopeExcluded) {
     if (INDEX_FALLBACK) {
-      event.respondWimth(
+      event.respondWith(
         caches.open(CACHE_NAME).then(cache => {
           return this._fetchIndex()
             .catch(() => this._returnCachedIndex());
