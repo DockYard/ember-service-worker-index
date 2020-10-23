@@ -74,7 +74,7 @@ function cacheFirstFetch(event) {
 function cacheFallbackFetch(event, fetchTimeout) {
   const FETCH_TIMEOUT = fetchTimeout;
   let didTimeOut = false;
-  new Promise(function(resolve, reject) {
+  new Promise(function(_resolve, reject) {
     const timeout = setTimeout(function() {
       didTimeOut = true;
       reject(new Error('Request timed out'));
