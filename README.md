@@ -36,6 +36,17 @@ module.exports = function(defaults) {
       // every route in your app.
       includeScope: [/\/dashboard(\/.*)?$/, /\/admin(\/.*)?$/],
 
+      // Indicate the caching strategy to use for the index.html file.
+      // cache-first: read from the cache first
+      // fallback: attempt to load but fallback to the cache after the timeout specified in "timeout" option
+      // defaults to "cache-first"
+      strategy: 'fallback',
+
+      // Used along with strategy of "fallback".
+      // The number of milliseconds to wait for newly loaded index file before falling back to the cache
+      // defaults to 500 milliseconds
+      timeout: 500,
+
       // Changing this version number will bust the cache, but you probably do not
       // want to be doing this manually, but rather using `versionStrategy` as
       // explained here http://ember-service-worker.com/documentation/configuration/#versioning
