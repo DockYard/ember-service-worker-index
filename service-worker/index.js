@@ -34,7 +34,8 @@ self.addEventListener('fetch', (event) => {
   let request = event.request;
   let url = new URL(request.url);
   let isGETRequest = request.method === 'GET';
-  let isHTMLRequest = request.headers.get('accept').indexOf('text/html') !== -1;
+  let acceptHeader = request.headers !== null ? request.headers.get('accept') : null;
+  let isHTMLRequest = acceptHeader !== null ? acceptHeader.indexOf('text/html') !== -1 : true;
   let isLocal = url.origin === location.origin;
   let scopeExcluded = urlMatchesAnyPattern(request.url, INDEX_EXCLUDE_SCOPE);
   let scopeIncluded = !INDEX_INCLUDE_SCOPE.length || urlMatchesAnyPattern(request.url, INDEX_INCLUDE_SCOPE);
