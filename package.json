@@ -1,6 +1,6 @@
 {
   "name": "ember-service-worker-index",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "description": "An Ember Service Worker plugin that caches the index.html file",
   "directories": {
     "doc": "doc",
